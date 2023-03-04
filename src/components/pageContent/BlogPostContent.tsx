@@ -59,7 +59,7 @@ export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
   return (
     <article {...rendering}>
       <Text tag="h3" className="content-block_heading" field={fields?.title} />
-      {fields.image && <Image field={fields.image} />}
+      {fields?.image && <Image field={fields.image} />}
       <RichText tag="p" className="content-block_copy" field={articleContent} />
     </article>
   );
