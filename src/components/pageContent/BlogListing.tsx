@@ -1,37 +1,47 @@
-import { Text, RichText, Field, withDatasourceCheck, GetStaticComponentProps } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Text, RichText, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import {
+  Default as BlogPost,
+  WithImage as BlogPostImage,
+} from 'src/components/pageContent/BlogPostContent';
 import { ComponentProps } from 'lib/component-props';
+
+type BlogPostListing = typeof BlogPost | typeof BlogPostImage;
 
 type BlogListingProps = ComponentProps & {
   fields: {
     title: Field<string>;
     description: Field<string>;
   };
-  viewBag: {
-    withImage: boolean;
-  };
-  extraData: string
+  posts: BlogPostListing[];
 };
 
-/**
- * A simple Content Block component, with a heading and rich text block.
- * This is the most basic building block of a content site, and the most basic
- * JSS component that's useful.
- */
 const _BlogListing = (props: BlogListingProps): JSX.Element => (
   <section>
-    <Text tag="h1" className="content-block_heading" field={props.fields.title} />
-    <RichText className="content-block_copy" field={props.fields.description} />
-    <p>{props.extraData}</p>
+    <Text tag="h2" className="content-block_heading" field={props.fields.title} />
+    {props.fields.description && (
+      <RichText tag="p" className="content-block_copy" field={props.fields.description} />
+    )}
+    <ul className="blog-post-list">
+      {props.posts.map((post, index) => {
+        // Check the type of the block and render the appropriate component
+        if (post.viewBag?.withImage) {
+          return (
+            <li className="blog-post" key={index}>
+              <BlogPostImage {...post} />;
+            </li>
+          );
+        } else {
+          return (
+            <li className="blog-post" key={index}>
+              <BlogPost {...post} />;
+            </li>
+          );
+        }
+      })}
+    </ul>
   </section>
 );
 
-const _Default = (props: BlogListingProps) : JSX.Element => (
-  <_BlogListing {...props} viewBag={{ withImage: false }} />
-);
-
-
-export const getStaticProps: GetStaticComponentProps = async() => {
-  return { extraData: 'Hello world!'}
-}
+const _Default = (props: BlogListingProps): JSX.Element => <_BlogListing {...props} />;
 
 export const Default = withDatasourceCheck()<BlogListingProps>(_Default);

@@ -1,5 +1,14 @@
-import { Text, Image, RichText, Field, withDatasourceCheck, ImageField, GetStaticComponentProps } from '@sitecore-jss/sitecore-jss-nextjs';
+import {
+  Text,
+  Image,
+  RichText,
+  Field,
+  withDatasourceCheck,
+  ImageField,
+} from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
+import { useEffect, useState } from 'react';
+import { GPT3 } from 'lib/GPT3';
 
 type BlogPostContentProps = ComponentProps & {
   fields: {
@@ -13,34 +22,43 @@ type BlogPostContentProps = ComponentProps & {
   viewBag: {
     withImage: boolean;
   };
-  extraData: string
+  extraData: string;
 };
 
-/**
- * A simple Content Block component, with a heading and rich text block.
- * This is the most basic building block of a content site, and the most basic
- * JSS component that's useful.
- */
-const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => (
-  <section>
-    <Text tag="h1" className="content-block_heading" field={props.fields.title} />
-    <RichText className="content-block_copy" field={props.fields.content} />
-    {props.viewBag.withImage && <Image field={props.fields.image} />}
-    <p>{props.extraData}</p>
-  </section>
-);
+const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
+  const [articleContent, setArticleContent] = useState<Field<string>>(props.fields.content);
 
-const _Default = (props: BlogPostContentProps) : JSX.Element => (
+  useEffect(() => {
+    const fetchData = async () => {
+      const content = props.fields.content.value;
+      const prompt = props.fields.prompt.value;
+
+      if (!content && prompt) {
+        const gpt3 = new GPT3('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');
+        const response = (await gpt3.query(prompt).toString()) || '';
+        setArticleContent({ value: response });
+      }
+    };
+
+    fetchData();
+  }, [props.fields.content.value, props.fields.prompt.value]);
+
+  return (
+    <article>
+      <Text tag="h3" className="content-block_heading" field={props.fields.title} />
+      {props.viewBag.withImage && <Image field={props.fields.image} />}
+      <RichText tag="p" className="content-block_copy" field={articleContent} />
+    </article>
+  );
+};
+
+const _Default = (props: BlogPostContentProps): JSX.Element => (
   <_BlogPostContent {...props} viewBag={{ withImage: false }} />
 );
 
-const _WithImage = (props: BlogPostContentProps) : JSX.Element => (
+const _WithImage = (props: BlogPostContentProps): JSX.Element => (
   <_BlogPostContent {...props} viewBag={{ withImage: true }} />
 );
-
-export const getStaticProps: GetStaticComponentProps = async() => {
-  return { extraData: 'Hello world!'}
-}
 
 export const Default = withDatasourceCheck()<BlogPostContentProps>(_Default);
 export const WithImage = withDatasourceCheck()<BlogPostContentProps>(_WithImage);
