@@ -19,7 +19,7 @@ const _ContentBlockWrapper = (props: ContentBlockWrapperProps): JSX.Element => (
     <Text tag="h2" className="section-heading" field={props.fields.heading} />
     {props.fields.contentBlocks.value.map((block, index) => {
       // Check the type of the block and render the appropriate component
-      if (block.props.viewBag?.withImage) {
+      if (block.viewBag?.withImage) {
         return <ImageContentBlock key={index} {...block} />;
       } else {
         return <ContentBlock key={index} {...block} />;
@@ -28,7 +28,7 @@ const _ContentBlockWrapper = (props: ContentBlockWrapperProps): JSX.Element => (
   </section>
 );
 
-const _Default = (props: ContentBlockWrapperProps) : JSX.Element => (
+const _Default = (props: ContentBlockWrapperProps): JSX.Element => (
   <_ContentBlockWrapper {...props} />
 );
 
