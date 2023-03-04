@@ -28,8 +28,6 @@ export class GPT3 {
       model: 'text-davinci-003',
       prompt: prompt,
       max_tokens: 2000,
-      stop: ['\n'],
-      n: 1,
     });
 
     return response.data.choices[0].text;
