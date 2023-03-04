@@ -5,8 +5,9 @@ import {
   Image,
   RichText,
   Field,
-  withDatasourceCheck,
   ImageField,
+  ComponentParams,
+  ComponentRendering,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
 import { useEffect, useState } from 'react';
@@ -22,9 +23,12 @@ type BlogPostContentProps = ComponentProps & {
     prompt: Field<string>;
     apiKey: Field<string>;
   };
+  rendering: ComponentRendering;
+  params: ComponentParams;
 };
 
-const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
+export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
+  const { fields, rendering } = props;
   const [articleContent, setArticleContent] = useState<Field<string>>(props.fields.content);
 
   useEffect(() => {
@@ -34,7 +38,9 @@ const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
 
       if (!content && prompt) {
         const gpt3 = new GPT3(props.fields.apiKey.value);
-        const response = (await gpt3.query(prompt).toString()) || '';
+        let response = await gpt3.query(prompt);
+        if (!response) response = '';
+
         setArticleContent({ value: response });
       }
     };
@@ -43,14 +49,12 @@ const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
   }, [props.fields.content.value, props.fields.prompt.value, props.fields.apiKey.value]);
 
   return (
-    <article>
-      <Text tag="h3" className="content-block_heading" field={props.fields.title} />
-      {props.fields.image && <Image field={props.fields.image} />}
+    <article {...rendering}>
+      <Text tag="h3" className="content-block_heading" field={fields.title} />
+      {fields.image && <Image field={fields.image} />}
       <RichText tag="p" className="content-block_copy" field={articleContent} />
     </article>
   );
 };
 
-const _Default = (props: BlogPostContentProps): JSX.Element => <_BlogPostContent {...props} />;
-
-export const Default = withDatasourceCheck()<BlogPostContentProps>(_Default);
+export default BlogPostContent;

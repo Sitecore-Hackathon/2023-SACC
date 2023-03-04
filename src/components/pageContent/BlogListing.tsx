@@ -1,7 +1,7 @@
 // disable prettier for this file to avoid formatting issues with the JSX
 // prettier-ignore
-import { Text, RichText, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
-import { Default as BlogPostContent } from 'src/components/pageContent/BlogPostContent';
+import { Text, RichText, ImageField, Field, withDatasourceCheck, ComponentParams, ComponentRendering } from '@sitecore-jss/sitecore-jss-nextjs';
+import BlogPostContent from 'src/components/pageContent/BlogPostContent';
 import { ComponentProps } from 'lib/component-props';
 
 type BlogListingProps = ComponentProps & {
@@ -9,7 +9,20 @@ type BlogListingProps = ComponentProps & {
     title: Field<string>;
     description: Field<string>;
   };
-  posts: BlogPostContent[];
+  posts: ComponentProps &
+    {
+      fields: {
+        title: Field<string>;
+        author: Field<string>;
+        date: Field<string>;
+        content: Field<string>;
+        image: ImageField;
+        prompt: Field<string>;
+        apiKey: Field<string>;
+      };
+      rendering: ComponentRendering;
+      params: ComponentParams;
+    }[];
 };
 
 const _BlogListing = (props: BlogListingProps): JSX.Element => (
@@ -22,7 +35,7 @@ const _BlogListing = (props: BlogListingProps): JSX.Element => (
       {props.posts.map((post, index) => {
         return (
           <li className="blog-post" key={index}>
-            <BlogPostContent {...post} />;
+            <BlogPostContent fields={post.fields} rendering={post.rendering} params={post.params} />;
           </li>
         );
       })}
