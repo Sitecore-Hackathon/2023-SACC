@@ -1,3 +1,5 @@
+// disable prettier for this file to avoid formatting issues with the JSX
+// prettier-ignore
 import {
   Text,
   Image,
@@ -20,10 +22,6 @@ type BlogPostContentProps = ComponentProps & {
     prompt: Field<string>;
     apiKey: Field<string>;
   };
-  viewBag: {
-    withImage: boolean;
-  };
-  extraData: string;
 };
 
 const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
