@@ -54,7 +54,7 @@ export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
     } else {
       setArticleContent({ value: 'No content or prompt' });
     }
-  }, [props.fields.content.value, props.fields.prompt.value, props.fields.apiKey.value]);
+  }, [props?.fields?.content?.value, props?.fields?.prompt?.value, props?.fields?.apiKey?.value]);
 
   return (
     <article {...rendering}>
