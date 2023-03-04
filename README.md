@@ -1,7 +1,6 @@
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
-# Sitecore Hackathon 2023
+# Sitecore JSS Next.js Sample Application
 
-- MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**
-- [Entry form template](ENTRYFORM.md)
-  
-### ⟹ [Insert your documentation here](ENTRYFORM.md) <<
+
+[Documentation (Experience Platform)](https://doc.sitecore.com/xp/en/developers/hd/201/sitecore-headless-development/sitecore-javascript-rendering-sdk--jss--for-next-js.html)
+
+[Documentation (XM Cloud)](https://doc.sitecore.com/xmc/en/developers/xm-cloud/sitecore-javascript-rendering-sdk--jss--for-next-js.html)
