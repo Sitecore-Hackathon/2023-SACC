@@ -32,20 +32,26 @@ export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
   const [articleContent, setArticleContent] = useState<Field<string>>(props.fields.content);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const content = props.fields.content.value;
-      const prompt = props.fields.prompt.value;
+    const content = props.fields.content.value;
+    const prompt = props.fields.prompt.value;
 
-      if (!content && prompt) {
+    if (content) return;
+
+    if (!content && prompt) {
+      setArticleContent({ value: 'Loading...' });
+
+      const fetchData = async () => {
         const gpt3 = new GPT3(props.fields.apiKey.value);
         let response = await gpt3.query(prompt);
-        if (!response) response = '';
+        if (!response) response = 'No response from GPT-3';
 
         setArticleContent({ value: response });
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    } else {
+      setArticleContent({ value: 'No content or prompt' });
+    }
   }, [props.fields.content.value, props.fields.prompt.value, props.fields.apiKey.value]);
 
   return (

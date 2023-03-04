@@ -93,6 +93,11 @@ ul li {
   flex-wrap: wrap;
 }
 
+#content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .sc-jss-placeholder-error {
   background: #ff0000;
   outline: 5px solid #e36565;
