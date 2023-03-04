@@ -29,37 +29,29 @@ type BlogPostContentProps = ComponentProps & {
 
 export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
   const { fields, rendering } = props;
-  const [articleContent, setArticleContent] = useState<Field<string>>(
-    props?.fields?.content || { value: '' }
-  );
+  const [articleContent, setArticleContent] = useState<Field<string>>(props.fields.content);
 
   useEffect(() => {
-    const content = props.fields.content.value;
-    const prompt = props.fields.prompt.value;
+    const fetchData = async () => {
+      const content = props.fields.content.value;
+      const prompt = props.fields.prompt.value;
 
-    if (content) return;
-
-    if (!content && prompt) {
-      setArticleContent({ value: 'Loading...' });
-
-      const fetchData = async () => {
+      if (!content && prompt) {
         const gpt3 = new GPT3(props.fields.apiKey.value);
         let response = await gpt3.query(prompt);
-        if (!response) response = 'No response from GPT-3';
+        if (!response) response = '';
 
         setArticleContent({ value: response });
-      };
+      }
+    };
 
-      fetchData();
-    } else {
-      setArticleContent({ value: 'No content or prompt' });
-    }
-  }, [props?.fields?.content?.value, props?.fields?.prompt?.value, props?.fields?.apiKey?.value]);
+    fetchData();
+  }, [props.fields.content.value, props.fields.prompt.value, props.fields.apiKey.value]);
 
   return (
     <article {...rendering}>
-      <Text tag="h3" className="content-block_heading" field={fields?.title} />
-      {fields?.image && <Image field={fields.image} />}
+      <Text tag="h3" className="content-block_heading" field={fields.title} />
+      {fields.image && <Image field={fields.image} />}
       <RichText tag="p" className="content-block_copy" field={articleContent} />
     </article>
   );
