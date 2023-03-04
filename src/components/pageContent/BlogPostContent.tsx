@@ -30,7 +30,7 @@ type BlogPostContentProps = ComponentProps & {
 export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
   const { fields, rendering } = props;
   const [articleContent, setArticleContent] = useState<Field<string>>(
-    props.fields.content || { value: '' }
+    props?.fields?.content || { value: '' }
   );
 
   useEffect(() => {
