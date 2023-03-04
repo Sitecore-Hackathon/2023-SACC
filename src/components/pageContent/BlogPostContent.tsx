@@ -18,6 +18,7 @@ type BlogPostContentProps = ComponentProps & {
     content: Field<string>;
     image: ImageField;
     prompt: Field<string>;
+    apiKey: Field<string>;
   };
   viewBag: {
     withImage: boolean;
@@ -34,31 +35,24 @@ const _BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
       const prompt = props.fields.prompt.value;
 
       if (!content && prompt) {
-        const gpt3 = new GPT3('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');
+        const gpt3 = new GPT3(props.fields.apiKey.value);
         const response = (await gpt3.query(prompt).toString()) || '';
         setArticleContent({ value: response });
       }
     };
 
     fetchData();
-  }, [props.fields.content.value, props.fields.prompt.value]);
+  }, [props.fields.content.value, props.fields.prompt.value, props.fields.apiKey.value]);
 
   return (
     <article>
       <Text tag="h3" className="content-block_heading" field={props.fields.title} />
-      {props.viewBag.withImage && <Image field={props.fields.image} />}
+      {props.fields.image && <Image field={props.fields.image} />}
       <RichText tag="p" className="content-block_copy" field={articleContent} />
     </article>
   );
 };
 
-const _Default = (props: BlogPostContentProps): JSX.Element => (
-  <_BlogPostContent {...props} viewBag={{ withImage: false }} />
-);
-
-const _WithImage = (props: BlogPostContentProps): JSX.Element => (
-  <_BlogPostContent {...props} viewBag={{ withImage: true }} />
-);
+const _Default = (props: BlogPostContentProps): JSX.Element => <_BlogPostContent {...props} />;
 
 export const Default = withDatasourceCheck()<BlogPostContentProps>(_Default);
-export const WithImage = withDatasourceCheck()<BlogPostContentProps>(_WithImage);

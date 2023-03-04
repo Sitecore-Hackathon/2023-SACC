@@ -23,20 +23,11 @@ const _BlogListing = (props: BlogListingProps): JSX.Element => (
     )}
     <ul className="blog-post-list">
       {props.posts.map((post, index) => {
-        // Check the type of the block and render the appropriate component
-        if (post.viewBag?.withImage) {
-          return (
-            <li className="blog-post" key={index}>
-              <BlogPostImage {...post} />;
-            </li>
-          );
-        } else {
-          return (
-            <li className="blog-post" key={index}>
-              <BlogPost {...post} />;
-            </li>
-          );
-        }
+        return (
+          <li className="blog-post" key={index}>
+            <BlogPost {...post} />;
+          </li>
+        );
       })}
     </ul>
   </section>
