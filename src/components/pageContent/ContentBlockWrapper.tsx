@@ -2,7 +2,7 @@ import { Text, Field, withDatasourceCheck  } from '@sitecore-jss/sitecore-jss-ne
 import { ComponentProps } from 'lib/component-props';
 import { Default as ContentBlock, WithImage as ImageContentBlock } from 'src/components/pageContent/ContentBlock';
 
-type ContentBlockUnion = ContentBlock | ImageContentBlock;
+type ContentBlockUnion = typeof ContentBlock | typeof ImageContentBlock;
 
 type ContentBlockWrapperProps = ComponentProps & {
   fields: {
@@ -19,7 +19,7 @@ const _ContentBlockWrapper = (props: ContentBlockWrapperProps): JSX.Element => (
     <Text tag="h2" className="section-heading" field={props.fields.heading} />
     {props.fields.contentBlocks.value.map((block, index) => {
       // Check the type of the block and render the appropriate component
-      if (block.viewBag?.withImage) {
+      if (block.props.viewBag?.withImage) {
         return <ImageContentBlock key={index} {...block} />;
       } else {
         return <ContentBlock key={index} {...block} />;
