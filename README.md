@@ -1,58 +1,94 @@
 # Hackathon Submission Entry form
 
+  
+
 >  __Important__
+
 >
+
 > Copy and paste the content of this file into README.md or face automatic __disqualification__
+
 > All headlines and subheadlines shall be retained if not noted otherwise.
+
 > Fill in text in each section as instructed and then delete the existing text, including this blockquote.
+
+  
 
 You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
 
+  
+
 ## Team name
+
 ⟹ SACC
 
+  
+
 ## Category
+
 ⟹ Best enhancement to SXA Headless
 
+  
+  
 
 ## Description
 
+  
+
 ⟹ The SACC application extends SXA by providing a custom module for a content author that uses OpenAI to generate content.
 
-- Module Purpose: This module allows the content author to generate content easily using artificial intelligence.
+  
 
-- What problem was solved (if any): This module provides a kickstart to creating content quickly.
+- **Module Purpose:** This module allows the content author to generate content easily using artificial intelligence.
 
-- How does this module solve it: This problem is solved by using OpenAI's ChatGPT content generation and DALL-e for image generation.
+  
 
+- **What problem was solved (if any):** This module provides a kickstart to creating content quickly.
+
+  
+
+- **How does this module solve it:** This problem is solved by using OpenAI's ChatGPT content generation and DALL-e for image generation.
+
+  
+  
 
 ## Video link
 
+  
+
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
 
- 
+  
+
+  
 
 ⟹ [Replace this Video link](#video-link)
 
-
+  
+  
+  
 
 ## Pre-requisites and Dependencies
 
   
 
+  
+
 ⟹ Does your module rely on other Sitecore modules or frameworks?
+ 
 
-  
+- Item Service API
+- ChatGPT 
 
-- List any dependencies
-
-- Or other modules that must be installed
-
-- Or services that must be enabled/configured
-
-  
+ - The following tools are required for the Next.js install:
+	 - "openai": "^3.2.1" (for ChatGPT)
+	 - "react": "^18.1.0"
+	 - "react-dom": "^18.1.0"
+	 -  "xhr2": "^0.2.1"  (for item service)
 
 _Remove this subsection if your entry does not have any prerequisites other than Sitecore_
+
+  
 
   
 
@@ -60,82 +96,35 @@ _Remove this subsection if your entry does not have any prerequisites other than
 
 ⟹ Write a short clear step-wise instruction on how to install your module.
 
-  
-
->  _A simple well-described installation process is required to win the Hackathon._
-
-> Feel free to use any of the following tools/formats as part of the installation:
-
->  - Sitecore Package files
-
->  - Docker image builds
-
->  - Sitecore CLI
-
->  - msbuild
-
->  - npm / yarn
-
->
-
->  _Do not use_
-
->  - TDS
-
->  - Unicorn
-
-for example:
-
-  
-
-1. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-
-2. ...
-
-3. profit
+ 1. Install Sitecore XM 10.3 Using Sitecore Install Assistant.  (We did not use a docker container) [Sitecore Experience Platform 10.3](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/103/Sitecore_Experience_Platform_103.aspx)
+ 2. When installing, make sure to check the Sitecore Experience Accelerator (SXA) option.
+ 3. Ensure the instance is running 
+ 4. Use the Sitecore Installation wizard to install the [package] 
+ 5.  A free account has been added for ChatGPT.
 
   
 
 ### Configuration
+ 
 
 ⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
 
   
 
-_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
+## Usage instructions
 
   
-
-## Usage instructions
 
 ⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
 
-  
-
 Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
 
-  
-
-![Hackathon Logo](docs/images/hackathon.png?raw=true  "Hackathon Logo")
-
-  
-
-You can embed images of different formats too:
-
-  
-
-![Deal With It](docs/images/deal-with-it.gif?raw=true  "Deal With It")
-
-  
-
-And you can embed external images too:
-
-  
-
-![Random](https://thiscatdoesnotexist.com/)
+![Team SACC Diagram](images/TeamSACCHackathonDiagram.png?raw=true  "Team SACC Diagram")
 
   
 
 ## Comments
+
+  
 
 If you'd like to make additional comments that is important for your module entry.
