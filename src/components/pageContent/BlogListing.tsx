@@ -35,7 +35,8 @@ const _BlogListing = (props: BlogListingProps): JSX.Element => (
       {props.posts.map((post, index) => {
         return (
           <li className="blog-post" key={index}>
-            <BlogPostContent fields={post.fields} rendering={post.rendering} params={post.params} />;
+            <BlogPostContent fields={post.fields} rendering={post.rendering} params={post.params} />
+            ;
           </li>
         );
       })}
