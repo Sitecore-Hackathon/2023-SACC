@@ -58,8 +58,6 @@
 
 ⟹ Does your module rely on other Sitecore modules or frameworks?
  
-
-- Item Service API
 - ChatGPT 
 
  - The following tools are required for the Next.js install:
@@ -68,11 +66,7 @@
 	 - "react-dom": "^18.1.0"
 	 -  "xhr2": "^0.2.1"  (for item service)
 
-_Remove this subsection if your entry does not have any prerequisites other than Sitecore_
-
-  
-
-  
+ 
 
 ## Installation instructions
 
