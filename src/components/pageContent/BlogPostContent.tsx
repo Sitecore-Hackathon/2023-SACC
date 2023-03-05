@@ -29,21 +29,23 @@ type BlogPostContentProps = ComponentProps & {
 
 export const BlogPostContent = (props: BlogPostContentProps): JSX.Element => {
   const { fields, rendering } = props;
-  const [articleContent, setArticleContent] = useState<Field<string>>({ value: 'Loading...' });
+  const [articleContent, setArticleContent] = useState<Field<string>>(props.fields.content);
 
   useEffect(() => {
-    const content = props.fields?.content?.value;
-    const prompt = props.fields?.prompt?.value;
-
     const fetchData = async () => {
-      const gpt3 = new GPT3(props.fields.apiKey.value);
-      let response = await gpt3.query(prompt);
-      if (!response) response = '';
+      const content = props.fields.content.value;
+      const prompt = props.fields.prompt.value;
 
-      setArticleContent({ value: response });
+      if (!content && prompt) {
+        const gpt3 = new GPT3(props.fields.apiKey.value);
+        let response = await gpt3.query(prompt);
+        if (!response) response = '';
+
+        setArticleContent({ value: response });
+      }
     };
 
-    content ? setArticleContent({ value: content }) : fetchData();
+    fetchData();
   }, [props.fields.content.value, props.fields.prompt.value, props.fields.apiKey.value]);
 
   return (
