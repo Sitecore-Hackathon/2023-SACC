@@ -62,7 +62,7 @@ You can find a very good reference to Github flavoured markdown reference in [th
 
   
 
-⟹ [Replace this Video link](#video-link)
+⟹ [Replace this Video link](https://youtu.be/OHLB4Ybk65c)
 
   
   
@@ -99,7 +99,7 @@ _Remove this subsection if your entry does not have any prerequisites other than
  1. Install Sitecore XM 10.3 Using Sitecore Install Assistant.  (We did not use a docker container) [Sitecore Experience Platform 10.3](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/103/Sitecore_Experience_Platform_103.aspx)
  2. When installing, make sure to check the Sitecore Experience Accelerator (SXA) option.
  3. Ensure the instance is running 
- 4. Use the Sitecore Installation wizard to install the [package] 
+ 4. Use the Sitecore Installation wizard to install - at ./sitecore-package/SACC Hackathon.zip 
  5.  A free account has been added for ChatGPT.
 
   
